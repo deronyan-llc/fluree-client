@@ -1,0 +1,670 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "Fluree HTTP API"
+paths:
+  /fluree/create:
+    post:
+      summary: "Endpoint for creating new ledgers"
+      consumes:
+      - "application/json"
+      - "application/sparql-query"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      produces:
+      - "application/json"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          type: "object"
+          additionalProperties: {}
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: ""
+          schema:
+            type: "object"
+            additionalProperties: {}
+            x-allOf:
+            - type: "object"
+              additionalProperties: {}
+            - type: "object"
+              properties:
+                ledger:
+                  type: "string"
+                  minLength: 1
+                t:
+                  type: "integer"
+                  format: "int64"
+                  minimum: 1
+                tx-id:
+                  type: "string"
+                  minLength: 1
+                commit:
+                  type: "string"
+                  minLength: 1
+              required:
+              - "ledger"
+              - "t"
+              - "tx-id"
+              - "commit"
+              additionalProperties: false
+        "400":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+        "500":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+  /fluree/transact:
+    post:
+      summary: "Endpoint for submitting transactions"
+      consumes:
+      - "application/json"
+      - "application/sparql-query"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      produces:
+      - "application/json"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          type: "object"
+          additionalProperties: {}
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: "object"
+            additionalProperties: {}
+            x-allOf:
+            - type: "object"
+              additionalProperties: {}
+            - type: "object"
+              properties:
+                ledger:
+                  type: "string"
+                  minLength: 1
+                t:
+                  type: "integer"
+                  format: "int64"
+                  minimum: 1
+                tx-id:
+                  type: "string"
+                  minLength: 1
+                commit:
+                  type: "string"
+                  minLength: 1
+              required:
+              - "ledger"
+              - "t"
+              - "tx-id"
+              - "commit"
+              additionalProperties: false
+        "400":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+        "500":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+  /fluree/query:
+    get:
+      summary: "Endpoint for submitting queries"
+      consumes:
+      - "application/json"
+      - "application/sparql-query"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      produces:
+      - "application/json"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/body"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: ""
+          schema: {}
+        "400":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+        "500":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+    post:
+      summary: "Endpoint for submitting queries"
+      consumes:
+      - "application/json"
+      - "application/sparql-query"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      produces:
+      - "application/json"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/body_1"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: ""
+          schema: {}
+        "400":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+        "500":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+  /fluree/history:
+    get:
+      summary: "Endpoint for submitting history queries"
+      consumes:
+      - "application/json"
+      - "application/sparql-query"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      produces:
+      - "application/json"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          type: "object"
+          additionalProperties: {}
+          x-allOf:
+          - type: "object"
+            additionalProperties: {}
+          - type: "object"
+            additionalProperties: {}
+            x-allOf:
+            - type: "object"
+              additionalProperties: {}
+            - {}
+            - type: "object"
+              properties:
+                history:
+                  anyOf:
+                  - $ref: "#/definitions/fluree.db.query.history~1iri"
+                  - x-anyOf:
+                    - {}
+                    - {}
+                    - {}
+                commit-details:
+                  type: "boolean"
+                context:
+                  $ref: "#/definitions/fluree.db.query.history~1context"
+                opts:
+                  type: "object"
+                  additionalProperties: {}
+                t:
+                  type: "object"
+                  additionalProperties: {}
+                  x-allOf:
+                  - type: "object"
+                    additionalProperties: {}
+                  - type: "object"
+                    properties:
+                      from:
+                        const: "latest"
+                        x-anyOf:
+                        - const: "latest"
+                        - type: "integer"
+                          format: "int64"
+                          minimum: 0
+                        - type: "string"
+                          pattern: "((?:-)?[0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\\\
+                            .([0-9]{1,9}))?(Z|(?:[+-][0-9]{2}:[0-9]{2}))?"
+                      to:
+                        const: "latest"
+                        x-anyOf:
+                        - const: "latest"
+                        - type: "integer"
+                          format: "int64"
+                          minimum: 0
+                        - type: "string"
+                          pattern: "((?:-)?[0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\\\
+                            .([0-9]{1,9}))?(Z|(?:[+-][0-9]{2}:[0-9]{2}))?"
+                      at:
+                        const: "latest"
+                        x-anyOf:
+                        - const: "latest"
+                        - type: "integer"
+                          format: "int64"
+                          minimum: 0
+                        - type: "string"
+                          pattern: "((?:-)?[0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\\\
+                            .([0-9]{1,9}))?(Z|(?:[+-][0-9]{2}:[0-9]{2}))?"
+                    additionalProperties: false
+                  - {}
+                  - {}
+                from:
+                  type: "string"
+                  minLength: 1
+              required:
+              - "t"
+              - "from"
+              additionalProperties: false
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties: {}
+        "400":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+        "500":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+    post:
+      summary: "Endpoint for submitting history queries"
+      consumes:
+      - "application/json"
+      - "application/sparql-query"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      produces:
+      - "application/json"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          type: "object"
+          additionalProperties: {}
+          x-allOf:
+          - type: "object"
+            additionalProperties: {}
+          - type: "object"
+            additionalProperties: {}
+            x-allOf:
+            - type: "object"
+              additionalProperties: {}
+            - {}
+            - type: "object"
+              properties:
+                history:
+                  anyOf:
+                  - $ref: "#/definitions/fluree.db.query.history~1iri"
+                  - x-anyOf:
+                    - {}
+                    - {}
+                    - {}
+                commit-details:
+                  type: "boolean"
+                context:
+                  $ref: "#/definitions/fluree.db.query.history~1context"
+                opts:
+                  type: "object"
+                  additionalProperties: {}
+                t:
+                  type: "object"
+                  additionalProperties: {}
+                  x-allOf:
+                  - type: "object"
+                    additionalProperties: {}
+                  - type: "object"
+                    properties:
+                      from:
+                        const: "latest"
+                        x-anyOf:
+                        - const: "latest"
+                        - type: "integer"
+                          format: "int64"
+                          minimum: 0
+                        - type: "string"
+                          pattern: "((?:-)?[0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\\\
+                            .([0-9]{1,9}))?(Z|(?:[+-][0-9]{2}:[0-9]{2}))?"
+                      to:
+                        const: "latest"
+                        x-anyOf:
+                        - const: "latest"
+                        - type: "integer"
+                          format: "int64"
+                          minimum: 0
+                        - type: "string"
+                          pattern: "((?:-)?[0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\\\
+                            .([0-9]{1,9}))?(Z|(?:[+-][0-9]{2}:[0-9]{2}))?"
+                      at:
+                        const: "latest"
+                        x-anyOf:
+                        - const: "latest"
+                        - type: "integer"
+                          format: "int64"
+                          minimum: 0
+                        - type: "string"
+                          pattern: "((?:-)?[0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\\\
+                            .([0-9]{1,9}))?(Z|(?:[+-][0-9]{2}:[0-9]{2}))?"
+                    additionalProperties: false
+                  - {}
+                  - {}
+                from:
+                  type: "string"
+                  minLength: 1
+              required:
+              - "t"
+              - "from"
+              additionalProperties: false
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties: {}
+        "400":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+        "500":
+          description: ""
+          schema:
+            type: "string"
+            x-anyOf:
+            - type: "string"
+            - type: "object"
+  /fluree/remoteResource:
+    post:
+      summary: "Remote connection resource read"
+      consumes:
+      - "application/json"
+      - "application/sparql-query"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      produces:
+      - "application/json"
+      - "application/transit+msgpack"
+      - "application/transit+json"
+      - "application/edn"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          type: "object"
+          additionalProperties: {}
+          x-allOf:
+          - type: "object"
+            additionalProperties: {}
+          - type: "object"
+            properties:
+              resource:
+                type: "string"
+                minLength: 1
+            required:
+            - "resource"
+            additionalProperties: false
+        x-exportParamName: "Body"
+      responses:
+        default:
+          description: ""
+definitions:
+  body_1:
+    type: "object"
+    required:
+    - "fluree.server.components.http/format"
+    - "fluree.server.components.http/query"
+    properties:
+      fluree.server.components.http/query:
+        type: "string"
+      fluree.server.components.http/format:
+        type: "string"
+        enum:
+        - "sparql"
+    additionalProperties: false
+    x-anyOf:
+    - type: "object"
+      properties:
+        fluree.server.components.http/query:
+          type: "string"
+        fluree.server.components.http/format:
+          type: "string"
+          enum:
+          - "sparql"
+      required:
+      - "fluree.server.components.http/query"
+      - "fluree.server.components.http/format"
+      additionalProperties: false
+    - type: "object"
+      additionalProperties: {}
+      x-allOf:
+      - type: "object"
+        additionalProperties: {}
+      - type: "object"
+        additionalProperties: {}
+        x-allOf:
+        - type: "object"
+          additionalProperties: {}
+        - {}
+        - type: "object"
+          properties:
+            from:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1from"
+            from-named:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1from-named"
+            where:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1where"
+            t:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1t"
+            context:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1context"
+            select:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            selectOne:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            select-one:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            selectDistinct:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            select-distinct:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            orderBy:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1order-by"
+            order-by:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1order-by"
+            groupBy:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1group-by"
+            group-by:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1group-by"
+            having:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1function"
+            values:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1values"
+            limit:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1limit"
+            offset:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1offset"
+            maxFuel:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1max-fuel"
+            max-fuel:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1max-fuel"
+            depth:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1depth"
+            opts:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1opts"
+            prettyPrint:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1pretty-print"
+            pretty-print:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1pretty-print"
+          additionalProperties: false
+  body:
+    type: "object"
+    required:
+    - "fluree.server.components.http/format"
+    - "fluree.server.components.http/query"
+    properties:
+      fluree.server.components.http/query:
+        type: "string"
+      fluree.server.components.http/format:
+        type: "string"
+        enum:
+        - "sparql"
+    additionalProperties: false
+    x-anyOf:
+    - type: "object"
+      properties:
+        fluree.server.components.http/query:
+          type: "string"
+        fluree.server.components.http/format:
+          type: "string"
+          enum:
+          - "sparql"
+      required:
+      - "fluree.server.components.http/query"
+      - "fluree.server.components.http/format"
+      additionalProperties: false
+    - type: "object"
+      additionalProperties: {}
+      x-allOf:
+      - type: "object"
+        additionalProperties: {}
+      - type: "object"
+        additionalProperties: {}
+        x-allOf:
+        - type: "object"
+          additionalProperties: {}
+        - {}
+        - type: "object"
+          properties:
+            from:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1from"
+            from-named:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1from-named"
+            where:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1where"
+            t:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1t"
+            context:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1context"
+            select:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            selectOne:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            select-one:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            selectDistinct:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            select-distinct:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1select"
+            orderBy:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1order-by"
+            order-by:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1order-by"
+            groupBy:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1group-by"
+            group-by:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1group-by"
+            having:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1function"
+            values:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1values"
+            limit:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1limit"
+            offset:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1offset"
+            maxFuel:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1max-fuel"
+            max-fuel:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1max-fuel"
+            depth:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1depth"
+            opts:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1opts"
+            prettyPrint:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1pretty-print"
+            pretty-print:
+              $ref: "#/definitions/fluree.db.query.fql.syntax~1pretty-print"
+          additionalProperties: false
+x-id:
+- "reitit.swagger/default"
